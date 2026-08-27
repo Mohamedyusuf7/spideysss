@@ -1,58 +1,117 @@
-Autonomous EDA Agent
-An intelligent multi-step workflow for automated exploratory data analysis.
+# Autonomous Agentic ML & EDA Intelligence Platform
 
-🏗️ System Architecture
+An enterprise-grade, self-correcting agentic system built with LangGraph and Google Gemini for autonomous exploratory data analysis, data cleaning, and machine learning pipeline generation.
 
-The high-level flow of the Autonomous EDA Agent follows a modular design so that additional analysis tools and checks can be added later:
+## 🏗️ System Architecture & Workflow
 
-1. Upload Dataset: Ingest CSV or Excel files through the web interface.
-2. Data Profiling: Automatically extract shape, column types, and missingness.
-3. Agent Decision: The agent selects the next useful EDA action dynamically based on intermediate results.
-4. EDA Tools: Run specific analysis, statistics, and visualization tools.
-5. Insights & Report: Present actionable observations and downloadable reports.
+The platform utilizes a stateful multi-agent workflow that cleanly separates high-level reasoning from secure local computation.
 
-⚡ Technology Stack
-
-* Python: Core application and analysis logic.
-* Pandas & NumPy: Tabular data loading, manipulation, and numerical operations.
-* Streamlit: Interactive web UI and dashboard.
-* LangGraph & LangChain: Multi-step agent workflow orchestration, state maintenance, and tool integration.
-
-🚀 Getting Started Locally
-
-1. Clone & Set Up Environment
-
-```bash
-git clone <repository-url>
-cd agentic-ml-pipeline
-python -m venv venv
-venv\Scripts\activate  # On Windows
-# source venv/bin/activate  # On macOS/Linux
+```
++-------------------------------------------------------------------------+
+|                        1. Dataset Ingestion                             |
+|              (Raw CSV/Excel Upload & Schema Validation)                 |
++-------------------------------------------------------------------------+
+                                     │
+                                     ▼
++-------------------------------------------------------------------------+
+|                        2. Data Inspector Node                           |
+|        (Analyzes Rows, Columns, Data Types, and Missingness)            |
++-------------------------------------------------------------------------+
+                                     │
+                                     ▼
++-------------------------------------------------------------------------+
+|                        3. Strategy Planner Node                         |
+|     (Formulates Multi-Step Preprocessing & Modeling Execution Plan)     |
++-------------------------------------------------------------------------+
+                                     │
+                                     ▼
++-------------------------------------------------------------------------+
+|                     4. Code Synthesizer (Generator)                     |
+|         (Writes Executable Python Code with Leakage Prevention)         |
++-------------------------------------------------------------------------+
+                                     │
+                                     ▼
++-------------------------------------------------------------------------+
+|                         5. Secure Sandbox Executor                      |
+|       (Executes Code, Captures Standard Output, Saves EDA Artifacts)    |
++-------------------------------------------------------------------------+
+                         │                               │
+         [ If Runtime Error / Exception ]     [ If Execution Successful ]
+                         │                               │
+                         ▼                               ▼
+        +-------------------------------+  +------------------------------+
+        |     6. Self-Correction Loop   |  |     7. Executive Synthesizer |
+        | (Feeds Error Back to Coder)   |  |    (Compiles Final Report)   |
+        +-------------------------------+  +------------------------------+
 ```
 
-2. Install Dependencies
+## ⚡ Core Modules & Features
+
+- **Module 01 — Validation & Health**: Automatically checks datasets for null rows, duplicate entries, constant zero-variance columns, and missing sentinel values, issuing a unified Data Quality Score.
+- **Module 02 — Intelligence & Profiling**: Generates column metadata, distribution histograms, box plots, correlation heatmaps, and LLM-driven analytical insights.
+- **Module 03 — Data Transformation**: Implements automated pipelines for dropping duplicates, cleaning null fields, imputing missing data (median/mode), and handling outlier removal via the IQR method.
+- **Module 04 — AutoML Model Engine**: Automatically detects task types (Classification vs. Regression), applies preprocessing transforms, trains baseline models (Logistic/Linear Regression, Decision Trees, Random Forests), and outputs a performance leaderboard.
+- **Self-Correcting Execution Sandbox**: Captures standard output (stdout) logs and automatically traps runtime exceptions to patch and re-run generated scripts dynamically.
+
+## 🛠️ Technology Stack
+
+- **Orchestration**: LangGraph (Stateful Agentic Graph Architecture)
+- **Intelligence Layer**: Google Gemini 3.5 Flash (via LangChain)
+- **User Interface**: Streamlit (Enterprise Dashboard Design)
+- **Data Processing**: Pandas, NumPy
+- **Machine Learning**: Scikit-Learn (Pipelines, Transformers, Ensembles)
+- **Visualization**: Plotly & Seaborn
+
+## 📦 Getting Started & Local Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/agentic-ml-pipeline.git
+cd agentic-ml-pipeline
+```
+
+### 2. Create and Activate a Virtual Environment
+
+```bash
+python -m venv venv
+# On Windows (PowerShell):
+venv\Scripts\activate
+# On macOS / Linux:
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configure API Keys
+### 4. Configure Environment Variables
 
-Create a `.env` file in the root directory and add your API credentials:
+Create a `.env` file in the root directory of your project folder and add your Gemini API key:
 
 ```
-GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_actual_gemini_api_key_here
 ```
 
-4. Run the Streamlit Application
+### 5. Launch the Application
 
 ```bash
 streamlit run app.py
 ```
 
-📋 Core Capabilities
+## 📋 Repository Structure
 
-* Automated Profiling: Inspect dataset dimensions, column types, missing values, and duplicate rows.
-* Robust Statistics: Calculate means, medians, standard deviations, ranges, and record counts.
-* Sandbox Execution: Securely run generated code with automatic error debugging.
-* Rich Visualizations: Dynamically generate plots to support interpretation.
+```
+agentic-ml-pipeline/
+│
+├── agent/
+│   ├── graph.py         # LangGraph state machine & node logic
+│   └── state.py         # Agent state schema definition
+│
+├── data_store/          # Storage directory for uploads and audit reports
+├── app.py               # Main Streamlit web dashboard application
+├── requirements.txt     # Python project package dependencies
+└── README.md            # Project documentation
+```
